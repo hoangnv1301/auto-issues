@@ -1,0 +1,40 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# GitHub recommends pinning actions to a commit SHA.
+# To get a newer version, you will need to update the SHA.
+# You can also reference a tag or branch, but the action may change without warning.
+
+name: Daily StandUp
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+jobs:
+  create_issue:
+    name: Create daily standup
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Set Date and Time
+        id: datetime
+        run: echo "::set-output name=date::$(date +'%Y%m%d_%H%M%S')"
+        
+      - name: Create daily standup issue
+        uses: imjohnbo/issue-bot@3d96848fb5e9a4a473bb81ae62b4b4866a56e93a
+        with:
+          title: "Daily standup - ${{ steps.datetime.outputs.date }}"
+          body: |
+            Done today:
+
+            Todo tomorrow:
+
+            Blocks:
+
+          pinned: false
+          close-previous: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
