@@ -10,7 +10,7 @@
 name: Daily StandUp
 on:
   schedule:
-    - cron: "15 8 * * *"
+    - cron: "30 8 * * *"
 
 jobs:
   create_issue:
@@ -24,7 +24,7 @@ jobs:
         run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_STATE
         
       - name: Create daily standup issue
-        uses: imjohnbo/issue-bot@3d96848fb5e9a4a473bb81ae62b4b4866a56e93a
+        uses: imjohnbo/issue-bot@v3
         with:
           title: "Daily standup - ${{ steps.datetime.outputs.date }}"
           body: |
