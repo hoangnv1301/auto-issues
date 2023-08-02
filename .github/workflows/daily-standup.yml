@@ -10,7 +10,7 @@
 name: Daily StandUp
 on:
   schedule:
-    - cron: "8 15 * * *"
+    - cron: "15 8 * * *"
 
 jobs:
   create_issue:
